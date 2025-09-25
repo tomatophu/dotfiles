@@ -1,0 +1,20 @@
+[font]
+size = 13
+offset = { x = 0, y = 2 }
+glyph_offset = { x = 0, y = 1 }
+# I set the y offset to one so that staline.nvim looks better
+
+[font.normal]
+family = 'SpaceMono Nerd Font Mono'
+style = 'Bold'
+
+[window]
+decorations = 'transparent'
+dynamic_padding = false
+padding = { x = 24, y = 27 }
+dimensions = { columns = 101, lines = 27 }
+position = { x = 0, y = 0 }
+
+[general]
+import = ['~/.config/alacritty/themes/themes/catppuccin_frappe.toml']
+

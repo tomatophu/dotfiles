@@ -1,0 +1,55 @@
+# gnu- and linux-ize
+. "$HOME/.linuxify"
+
+BREW_HOME=$(brew --prefix)
+
+GNU_COMPILER_COLLECTION=( 'gcc' 'g++' 'c++' 'gfortran' 'gcov' )
+GCC_VERSION=$(find /usr/local/opt/gcc@* | sort -n | tail -n1 | grep -o '[[:digit:]]*' | tail -n1)
+# ^ gets latest version of gcc
+for command in ${GNU_COMPILER_COLLECTION[@]}; do alias "$command"="$command-$GCC_VERSION"; done
+export MANPATH="${BREW_HOME}/opt/gcc@${GCC_VERSION}/share/man:$MANPATH"
+unset GNU_COMPILER_COLLECTION GCC_VERSION
+
+BUILTIN_SHELL_COMMANDS=( 'pwd' 'echo' 'kill' 'printf' 'true' 'false' )
+# maybe add 'time' ^
+for command in ${BUILTIN_SHELL_COMMANDS[@]}; do alias "$command"="g$command"; done
+alias '['=\''g['\'
+unset BUILTIN_SHELL_COMMANDS
+
+PYTHON_VERSION=$(ls $HOME/Library/Python/ | sort -V | tail -1)
+# (newest ver ^)
+export PATH="$HOME/Library/Python/${PYTHON_VERSION}/bin:$PATH"
+export CPPFLAGS="$(python-config --include) $CPPFLAGS"
+unset PYTHON_VERSION
+
+export PATH="${BREW_HOME}/opt/curl/bin:$PATH"
+export LDFLAGS="-L${BREW_HOME}/opt/curl/lib $LDFLAGS"
+export CPPFLAGS="-I${BREW_HOME}/opt/curl/include $CPPFLAGS"
+export PKG_CONFIG_PATH="${BREW_HOME}/opt/curl/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+export PATH="${BREW_HOME}/opt/gawk/libexec/gnubin:$PATH"
+export MANPATH="${BREW_HOME}/opt/gawk/libexec/gnuman:$MANPATH"
+
+export PATH="${BREW_HOME}/opt/binutils/bin:$PATH"
+export LDFLAGS="-L${BREW_HOME}/opt/binutils/lib $LDFLAGS"
+export CPPFLAGS="-I${BREW_HOME}/opt/binutils/include $CPPFLAGS"
+
+export PATH="${BREW_HOME}/opt/ruby/bin:$PATH"
+export LDFLAGS="-L${BREW_HOME}/opt/ruby/lib $LDFLAGS"
+export CPPFLAGS="-I${BREW_HOME}/opt/ruby/include $CPPFLAGS"
+export PKG_CONFIG_PATH="${BREW_HOME}/opt/ruby/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+export PATH="${BREW_HOME}/opt/expat/bin:$PATH"
+export LDFLAGS="-L${BREW_HOME}/opt/expat/lib $LDFLAGS"
+export CPPFLAGS="-I${BREW_HOME}/opt/expat/include $CPPFLAGS"
+export PKG_CONFIG_PATH="${BREW_HOME}/opt/expat/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+export PATH="/usr/local/opt/openal-soft/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openal-soft/lib $LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/openal-soft/include $CPPFLAGS"
+export PKG_CONFIG_PATH="/usr/local/opt/openal-soft/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+export PATH="/usr/local/opt/rustup/bin:$PATH"
+
+unset BREW_HOME
+

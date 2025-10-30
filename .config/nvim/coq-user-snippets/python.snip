@@ -8,16 +8,16 @@ alias pgbp
 
 
   class Game(object):
-    
+      
+      _SCREEN_SIZE = (${1:width}, ${2:height})
+      _SURF_RATIO = (${3:x_ratio}, ${4:y_ratio})
+      _SURF_SIZE = (int(_SCREEN_SIZE[0] / _SURF_RATIO[0]),
+                    int(_SCREEN_SIZE[1] / _SURF_RATIO[1]))
+      _SCREEN_FLAGS = pg.RESIZABLE | pg.SCALED
+      _GAME_SPEED = 60
+
       def __init__(self: Self) -> None:
           pg.init()
-
-          self._SCREEN_SIZE = (${1:width}, ${2:height})
-          self._SURF_RATIO = (${3:x_ratio}, ${4:y_ratio})
-          self._SURF_SIZE = (int(self._SCREEN_SIZE[0] / self._SURF_RATIO[0]),
-                             int(self._SCREEN_SIZE[1] / self._SURF_RATIO[1]))
-          self._SCREEN_FLAGS = pg.RESIZABLE | pg.SCALED
-          self._GAME_SPEED = 60
 
           self._settings = {
               'vsync': 1,
@@ -56,3 +56,4 @@ alias pgbp
   if __name__ == '__main__':
       Game().run()
   ${0}
+

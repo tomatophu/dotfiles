@@ -85,5 +85,10 @@ require('lazy').setup({
       ---@type dapview.Config
       opts = {},
    },
+
+   {
+      'wakatime/vim-wakatime',
+      lazy = false,
+   },
 })
 
